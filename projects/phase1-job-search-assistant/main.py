@@ -43,18 +43,30 @@ client = OpenAI()  # reads OPENAI_API_KEY from env
 
 # print(reply)
 
-name : str = "protima"
-age : int = 32
-score : float = 9.5
-active : bool = True
-Person : str 
+# name : str = "protima"
+# age : int = 32
+# score : float = 9.5
+# active : bool = True
+# Person : str 
 
-tag : list[str] = ["python","ai"]
-config : dict[str,str]={"model":"gpt-4o-mini"}
+# tag : list[str] = ["python","ai"]
+# config : dict[str,str]={"model":"gpt-4o-mini"}
 
-middle_name : str | None = None
+# middle_name : str | None = None
 
-def greet(name: str,formal: bool =False) -> str:
-    return f"Hello {name}"
+# def greet(name: str,formal: bool =False) -> str:
+#     return f"Hello {name}"
 
-print(greet("protima"))
+# print(greet("protima"))
+
+stream = client.chat.completions.create(
+    model="gpt-4o-mini",
+    max_tokens=256,
+    stream= True,
+    messages=[{"role":"user","content" : "Write a 3 sentence cover letter intro for a software engineer."}]
+)
+
+for chunk in stream:
+    delta = chunk.choices[0].delta.content
+    if delta :
+        print(delta,end="",flush=True)
