@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: protima-job-search-assistant
+    runtime: docker
+    rootDir: protima/job-search-assistant/backend
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false

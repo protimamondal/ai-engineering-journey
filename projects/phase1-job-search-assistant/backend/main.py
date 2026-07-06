@@ -28,6 +28,13 @@ available_func = {
 }
 
 
+# A tiny "is the server alive?" endpoint. The deploy host pings this to know
+# your app started OK. Returns instantly, no AI involved.
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
+
 # Pydantic model = the request body's shape. FastAPI validates it for you,
 # the way you'd validate a form on the frontend before submit.
 class ChatRequest(BaseModel):
