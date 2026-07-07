@@ -21,17 +21,32 @@ export default function Home() {
   const reader = res.body?.getReader();
   if (!reader) return;
   const decoder = new TextDecoder();
+  let buffer = "";
 
   while(true){
     const {done , value } = await reader.read();
     if(done) break;
-    const chunk = decoder.decode(value);
-  
-    setMessages(prev => {
-      const updated = [...prev]
-      updated[updated.length - 1] += chunk
-      return updated
-    })
+    buffer += decoder.decode(value, { stream: true });
+
+    // SSE frames are separated by a blank line ("\n\n"). A network chunk may
+    // contain several frames, or end mid-frame — so split on "\n\n" and keep
+    // the last (possibly partial) piece in `buffer` for the next read.
+    const frames = buffer.split("\n\n");
+    buffer = frames.pop() ?? "";
+
+    for (const frame of frames) {
+      const line = frame.trim();
+      if (!line.startsWith("data:")) continue;
+      const data = line.slice(5).trim();
+      if (data === "[DONE]") continue;
+      const text = JSON.parse(data);   // the delta string the backend sent
+
+      setMessages(prev => {
+        const updated = [...prev]
+        updated[updated.length - 1] += text
+        return updated
+      })
+    }
   }
 
  }

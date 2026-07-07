@@ -78,9 +78,18 @@ async def chat(req: ChatRequest):
         async for chunk in stream:
             delta = chunk.choices[0].delta.content
             if delta:
-                yield delta
+                # SSE frame: "data: <payload>\n\n". json.dumps keeps newlines
+                # inside the model's text from breaking the frame boundaries.
+                # Proxies (Render/Cloudflare) STREAM text/event-stream but
+                # BUFFER text/plain — that's why plain streaming arrived all at once.
+                yield f"data: {json.dumps(delta)}\n\n"
+        yield "data: [DONE]\n\n"
 
-    return StreamingResponse(generate(), media_type="text/plain")
+    return StreamingResponse(
+        generate(),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+    )
 
 
 if __name__ == "__main__":
