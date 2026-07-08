@@ -4,7 +4,7 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from dotenv import load_dotenv
 from openai import AsyncOpenAI
-from tools import tools, search_job, estimate_salary
+from tools import tools, search_jobs, estimate_salary
 import json
 
 load_dotenv()
@@ -23,7 +23,7 @@ app.add_middleware(
 client = AsyncOpenAI()
 
 available_func = {
-    "search_job": search_job,
+    "search_jobs": search_jobs,
     "estimate_salary": estimate_salary,
 }
 
@@ -60,10 +60,18 @@ async def chat(req: ChatRequest):
             func = available_func[tc.function.name]
             args = json.loads(tc.function.arguments)
             result = func(**args)
+            # A tool message's `content` must be a STRING. search_jobs now
+            # returns a list of JobListing objects, so turn it into JSON text
+            # (model_dump() converts each object to a plain dict). estimate_salary
+            # already returns a string, so leave that as-is.
+            if isinstance(result, list):
+                content = json.dumps([job.model_dump() for job in result])
+            else:
+                content = str(result)
             messages.append({
                 "role": "tool",
                 "tool_call_id": tc.id,
-                "content": result,
+                "content": content,
             })
 
     # Call #2 — stream the final answer back token by token.

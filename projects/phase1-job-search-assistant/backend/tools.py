@@ -1,8 +1,17 @@
+from pydantic import BaseModel
+
+class JobListing(BaseModel):
+    company : str
+    title : str
+    location : str
+    salary_usd : int | None
+    url : str | None
+
 tools = [
     {
         "type": "function",
         "function": {
-            "name": "search_job",
+            "name": "search_jobs",
             "description": "Search for job listings matching a title and location.",
             "parameters": {
                 "type": "object",
@@ -31,8 +40,15 @@ tools = [
     },
 ]
 
-def search_job(title:str,location:str) ->str:
-    return f"Found three jobs for {title} in {location}"
+def search_jobs(title:str,location:str) -> list[JobListing]:
+    # Stubbed results for now (real data comes later). The important thing is
+    # the SHAPE matches the shared contract: a list of JobListing objects,
+    # not a sentence. salary_usd/url are None when unknown.
+    return [
+        JobListing(company="XYZ Technologies", title=title, location=location, salary_usd=120000, url=None),
+        JobListing(company="ABC Solutions", title=title, location=location, salary_usd=None, url=None),
+        JobListing(company="Tech Innovations", title=title, location=location, salary_usd=180000, url=None),
+    ]
 
 def estimate_salary(title: str, years_exp : str) ->str:
     base = 10000 + years_exp * 50000
