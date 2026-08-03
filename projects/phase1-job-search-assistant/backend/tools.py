@@ -50,6 +50,6 @@ def search_jobs(title:str,location:str) -> list[JobListing]:
         JobListing(company="Tech Innovations", title=title, location=location, salary_usd=180000, url=None),
     ]
 
-def estimate_salary(title: str, years_exp : str) ->str:
+def estimate_salary(title: str, years_exp : int) ->str:
     base = 10000 + years_exp * 50000
     return f"estimated salary for {title} with {years_exp} yrs of exp the estimated salary is between ${base} - ${base + 20000}"
