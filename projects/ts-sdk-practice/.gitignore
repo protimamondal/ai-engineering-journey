@@ -1,0 +1,8 @@
+# Build output. `npx tsc <file>.ts` writes a .js next to the .ts — that is the
+# compiler doing its actual job, not a mistake. It is generated from the .ts,
+# so it never belongs in git. (`npx tsx` writes nothing; it runs from memory.)
+*.js
+
+# Belt and braces — the root .gitignore already covers both.
+.env
+node_modules/
