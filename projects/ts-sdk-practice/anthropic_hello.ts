@@ -39,8 +39,6 @@ for (const block of response.content) {
 
 -------------------------------- */
 
-export {};
-
 import "dotenv/config"
 import Anthropic from "@anthropic-ai/sdk"
 
