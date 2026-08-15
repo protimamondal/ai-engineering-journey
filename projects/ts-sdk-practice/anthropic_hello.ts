@@ -1,3 +1,9 @@
+// Write your own version here.
+// Run it with:  npx tsx anthropic_hello.ts
+// The original is kept below as reference — try without looking first.
+
+/* ---------- reference ----------
+
 // An import with no name after it. It does not give you anything to use —
 // it just runs that file, and running it is what loads your .env into the
 // environment. In Python you did this by calling load_dotenv() yourself.
@@ -28,5 +34,29 @@ console.log("stop_reason:", response.stop_reason);
 for (const block of response.content) {
   if (block.type === "text") {
     console.log(block.text);
+  }
+}
+
+-------------------------------- */
+
+export {};
+
+import "dotenv/config"
+import Anthropic from "@anthropic-ai/sdk"
+
+const client = new Anthropic();
+
+const response = await client.messages.create({
+  model : "claude-opus-5",
+  max_tokens : 16000,
+  system: "You are a concise job-search assistant.",
+  messages : [
+    {"role":"user","content":"Name three skills a backend engineer should learn for AI work."}
+  ],
+})
+
+for (const block of response.content){
+  if(block.type==="text"){
+    console.log(block.text)
   }
 }

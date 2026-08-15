@@ -1,3 +1,9 @@
+// Write your own version here.
+// Run it with:  npx tsx openai_hello.ts
+// The original is kept below as reference — try without looking first.
+
+/* ---------- reference ----------
+
 import "dotenv/config";
 import OpenAI from "openai";
 
@@ -17,3 +23,24 @@ const response = await client.chat.completions.create({
 // No loop, no block types. One string... except it is not quite a string.
 // Hover over `.content` in the editor and read the type it shows you.
 console.log(response.choices[0].message.content);
+
+-------------------------------- */
+
+export {};
+
+import "dotenv/config"
+import OpenAI from "openai"
+
+
+const client =  new OpenAI();
+
+const response = await client.chat.completions.create({
+  "model" : "gpt-4o-mini",
+  "max_tokens" : 256,
+  "messages" : [
+    {"role" : "user","content" : "Name three skills a backend engineer should learn for AI work."}
+  ]
+ 
+})
+
+console.log(response.choices[0].message.content)
