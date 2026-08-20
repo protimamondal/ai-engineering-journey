@@ -11,7 +11,7 @@ const searchJob = tool({
     
     return [
         {company: "Acme Corp", title,location,salary_usd : 120000},
-        {company: "Globex", title,location,salary_usd : 90000},
+        {company: "Globex", title,location,salary_usd : null},
     ]
  }
 })
