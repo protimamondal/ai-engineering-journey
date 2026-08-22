@@ -1,13 +1,11 @@
-// this file is for normal tool usage when tool comes 
-//  thrpugh mcp
+// this file is for normal 
+// tool usage when tool is defined in next js itself
 "use client"
 
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import React, { useState } from "react";
-import { chatMessage , serachResultObject , searchJobInput} from "./lib/ai/types";
-
-
+import { chatMessage } from "./lib/ai/types";
 
 export default function Home(){
  const [input, setInput] = useState("");
@@ -45,29 +43,25 @@ export default function Home(){
           if(part.type === "text"){
             return <p key={index}>{part.text}</p>
           }
-          if(part.type === "dynamic-tool" &&
-              part.toolName === "search_job"){
+          if(part.type==="tool-searchJob"){
              switch(part.state){
               case "input-streaming":
                 return(
                   <div key={part.toolCallId}> preparing... </div>
                 )
               case "input-available" : {
-                const inputRes = part.input as searchJobInput
                 return(
-                  <div key={part.toolCallId}> searching for {inputRes.title} in {inputRes.location}</div>
+                  <div key={part.toolCallId}> searching for {part.input.title} in {part.input.location}</div>
                 )
               }
 
               case "output-available" : {
-                const output = part.output as serachResultObject;
-                const jobs = output.structuredContent.result;
                 return(
                   <div key={part.toolCallId}>
-                    {jobs.map((outpt,ind)=>(
+                    {part.output.map((outpt,ind)=>(
                       <div key={ind}
                       className="border border-gray-600 rounded-xl p-2 mb-2"
-                      >{outpt.company} job for {outpt.title} in {outpt.location} {outpt.salary ? `for salary of $${outpt.salary}` : "salary not mentioned" }</div>
+                      >{outpt.company} job for {outpt.title} in {outpt.location} {outpt.salary_usd ? `for salary of $${outpt.salary_usd}` : "salary not mentioned" }</div>
                     ))}
                   </div>
                 )
