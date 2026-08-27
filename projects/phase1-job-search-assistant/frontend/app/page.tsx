@@ -34,6 +34,8 @@ export default function Home() {
     const frames = buffer.split("\n\n");
     buffer = frames.pop() ?? "";
 
+    
+
     for (const frame of frames) {
       const line = frame.trim();
       if (!line.startsWith("data:")) continue;
