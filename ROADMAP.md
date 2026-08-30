@@ -1,16 +1,19 @@
 # Primary Roadmap — AI Application Engineer Track
 
-> **Fixed reference. Do not modify without an explicit ask.** Reality-adjustments live in `PROGRESS.md` files.
->
-> Protima follows this verbatim. Rahul follows this **plus** `ROADMAP-RAHUL-DELTA.md` (read both per phase). Phases 1–6 are **lockstep** — see `PHASE.md`.
+> A fixed six-month curriculum, written up front and followed phase by phase.
+> It is deliberately not edited to match what actually happened — where reality
+> diverged, that is recorded in the build log instead.
 
-The spine: Python + LLM basics → frontend AI patterns → real backend → RAG → agents + deployment → evals + polish. Both learners come out able to ship an AI feature end-to-end, with Protima specialized in product-facing AI UX and full-stack delivery.
+The spine: Python + LLM basics → frontend AI patterns → real backend → RAG →
+agents + deployment → evals + polish. The end state is being able to ship an AI
+feature end to end, specialised in product-facing AI UX and RAG.
 
 ---
 
 ## Phase 1 — Foundations (Month 1)
 
-**Python and TypeScript fluency for AI.** Python idioms, type hints, async/await, Pydantic models, virtual envs. (Protima: TS already strong, add the AI SDK ergonomics.)
+**Python and TypeScript fluency for AI.** Python idioms, type hints, async/await, Pydantic models, virtual envs. TypeScript was already strong going in; the gap was Python and the
+AI SDK ergonomics.
 
 **Core LLM concepts.** Tokens, context windows, embeddings, temperature, structured output, function/tool calling, streaming. Hands-on with both Anthropic and OpenAI SDKs in both Python and TypeScript.
 
@@ -86,8 +89,12 @@ The spine: Python + LLM basics → frontend AI patterns → real backend → RAG
 
 ## After Phase 6
 
-Protima graduates the program here and starts applying as a **senior AI application engineer** who owns the full stack end-to-end, specialized in product-facing AI UX and RAG. Rahul continues into the Phases 7–9 extension (see the delta doc).
+The programme ends here: a **senior AI application engineer** who owns the full
+stack end to end, specialised in product-facing AI UX and RAG.
 
 ## The flagship project
 
-Across these phases, build **one shared flagship** (see `shared/FLAGSHIP.md`): Protima owns frontend/UX, Rahul owns agent backend + infra. Same artifact, two resume framings. It's also the best thing to debug together at the kitchen table.
+The phases are not six unrelated exercises. They build **one product** — a
+job-search assistant — which each phase takes further: a chat app in Phase 1, a
+real product with two AI surfaces in Phase 2, a FastAPI service behind it in
+Phase 3, RAG in Phase 4, an agent in Phase 5.
