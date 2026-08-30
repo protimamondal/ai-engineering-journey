@@ -2,7 +2,7 @@ services:
   - type: web
     name: protima-job-search-assistant
     runtime: docker
-    rootDir: protima/job-search-assistant/backend
+    rootDir: projects/phase1-job-search-assistant/backend
     dockerfilePath: ./Dockerfile
     plan: free
     healthCheckPath: /health
