@@ -21,7 +21,6 @@ partner, which is why some early commits carry a second author.
 | [`projects/aisdk-ground-up`](projects/aisdk-ground-up) | Vercel AI SDK learned from scratch — streaming, `useChat`, tool calls rendered as UI, generative UI, MCP client. | Reference |
 | [`projects/ts-sdk-practice`](projects/ts-sdk-practice) | Anthropic and OpenAI SDKs in TypeScript, side by side. | Reference |
 | [`projects/aisdk-lab`](projects/aisdk-lab) | First pass at tool-call UI as generative UI. | Reference |
-| [`notes/`](notes) | Working notes written while building each topic. | Working notes |
 
 ## Progress
 
@@ -47,9 +46,3 @@ deployed work rather than tutorials:
 3. **Decisions get written down with their reasoning**, in
    [`DECISIONS.md`](DECISIONS.md), so they are not silently relitigated later.
    Deferred work is recorded as deferred, not quietly dropped.
-
-## Notes on the notes
-
-`notes/` are working notes written during the build, for my own reference. They
-are kept because they are an honest record of how each topic was actually
-worked through, not because they are polished writing.
